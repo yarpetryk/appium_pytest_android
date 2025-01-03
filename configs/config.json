@@ -1,0 +1,8 @@
+{
+  "user_email": "lsqateam@gmail.com",
+  "user_password": "Abc123!!",
+  "package_name": "com.powerfox.powerfox",
+  "config_env_file": "./tests/config.env",
+  "language": "de",
+  "locale": "DE"
+}
