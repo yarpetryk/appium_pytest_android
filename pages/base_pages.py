@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, WebDriverException, TimeoutException, InvalidElementStateException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.alert import Alert
 import allure
 
 
@@ -312,4 +313,11 @@ class BasePage(object):
     def is_keyboard_appear(self):
         time.sleep(3)  # Give time to appear keyboard
         return self.driver.is_keyboard_shown()
+
+    def accept_system_alert(self, driver, is_allow=True):
+        alert = Alert(driver)
+        if is_allow:
+            alert.accept()
+        else:
+            alert.dismiss()
 

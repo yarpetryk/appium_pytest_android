@@ -1,11 +1,11 @@
 from helpers.adb_commands import ADB
 import time
-from helpers.config_importer import ConfigImporter
+from helpers.config_handler import Config
 
 
 class MobileActions:
     def __init__(self):
-        self.config_importer = ConfigImporter()
+        self.config_importer = Config()
         self.adb = ADB()
         self.package_name = self.config_importer.get_config('package_name')
 
@@ -22,9 +22,8 @@ class MobileActions:
         driver.activate_app(self.package_name)
         time.sleep(2)
 
-    def clear_data_and_run_app(self, driver, clear_data=True):
-        if clear_data:
-            self.adb.clear_app_data(self.package_name)
+    def clear_data_and_run_app(self, driver):
+        self.adb.clear_app_data(self.package_name)
         driver.activate_app(self.package_name)
         time.sleep(2)
 

@@ -1,17 +1,18 @@
 import requests
 from requests import Response
 from requests.auth import HTTPBasicAuth
-from helpers.config_env import EnvConfig
+from helpers.secure_config_handler import SecureConfig
 
 
 class ApiClientBasicAuth:
     def __init__(self):
-        self.api_config = EnvConfig()
+        self.api_config = SecureConfig()
         self.base_url = self.api_config.get_config().get("base_url")
         self.auth = HTTPBasicAuth(self.api_config.get_config().get("login"),
                                   self.api_config.get_config().get("password"))
 
     def send_get_request(self, path: str, timeout=10) -> Response or None:
+        print(self.base_url)
         request_path = self.base_url + path
         response = requests.get(request_path, auth=self.auth, timeout=timeout)
         return response

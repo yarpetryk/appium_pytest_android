@@ -4,10 +4,10 @@ import allure
 
 
 class ADB:
-    def __int__(self):
+    def __init__(self):
         pass
 
-    def get_device_serial(device_serial_id) -> str:
+    def get_device_serial(self, device_serial_id) -> str:
         """
         Purpose:
             Returns the device serial of the currently running device for this test
@@ -22,7 +22,7 @@ class ADB:
         device_serial = os.popen(command).read()
         return str(device_serial)
 
-    def get_connected_device_serial() -> str:
+    def get_connected_device_serial(self) -> str:
         """
         Purpose:
             Returns connected device serial
@@ -33,7 +33,7 @@ class ADB:
         device_serial = os.popen(command).read()
         return device_serial.splitlines()[1].split(' ')[0].strip(' ')
 
-    def get_hos_app_version_on_connected_device():
+    def get_hos_app_version_on_connected_device(self):
         """
             Purpose:
                 Returns hos app version
@@ -49,7 +49,7 @@ class ADB:
             return 'Not installed\n'
         return hos_version.replace('    versionName=','')
 
-    def get_device_model_type(device_serial_id) -> str:
+    def get_device_model_type(self, device_serial_id) -> str:
         """
         Purpose:
             Returns the device model type of the currently running device for this test
@@ -66,13 +66,13 @@ class ADB:
         else:
             return str(tablet_type)
 
-    def get_android_version(device_serial_id):
+    def get_android_version(self, device_serial_id):
         command = 'adb -s ' + str(device_serial_id) + ' shell getprop ro.build.version.release'
         android_version = os.popen(command).read()
         return str(android_version)
 
 
-    def clear_app_data(app_package_name:str):
+    def clear_app_data(self, app_package_name):
         """
         Purpose:
             Clear the app data for the specified app
@@ -92,7 +92,7 @@ class ADB:
             print(f"clearing app data of {app_package_name} is {success_message}")
 
     @allure.step("And force stop {app_package_name}")
-    def app_force_stop(device_serial_id:str, app_package_name:str):
+    def app_force_stop(self, device_serial_id:str, app_package_name:str):
         """
         Purpose:
             Use to force stop the app proccess
@@ -101,7 +101,7 @@ class ADB:
         command = 'adb -s ' + str(device_serial_id) + ' shell am force-stop ' + str(app_package_name)
         os.popen(command).read()
 
-    def turn_on_wifi(device_serial_id):
+    def turn_on_wifi(self, device_serial_id):
         """
         Purpose:
             Turn the WIFI on
@@ -110,7 +110,7 @@ class ADB:
         os.popen(command).read()
         print(command)
 
-    def turn_on_airplane_mode(device_serial_id):
+    def turn_on_airplane_mode(self, device_serial_id):
         """
         Purpose:
             Turn the airplane mode on for disabling the Bluetooth
@@ -119,7 +119,7 @@ class ADB:
         os.popen(command).read()
         print(command)
 
-    def turn_off_airplane_mode(device_serial_id):
+    def turn_off_airplane_mode(self, device_serial_id):
         """
         Purpose:
             Turn the airplane mode off for disabling the Bluetooth
@@ -128,7 +128,7 @@ class ADB:
         os.popen(command).read()
         print(command)
 
-    def get_app_version(device_id, app) -> str:
+    def get_app_version(self, device_id, app) -> str:
         command = 'adb -s ' + str(device_id) + \
                 ' shell dumpsys package com.pltsci.{0} | grep versionName'.format(app)
         app_version = os.popen(command).read()
@@ -152,7 +152,7 @@ class ADB:
         'connection']
 
     @allure.step("And open locale(language) settings on the Android")
-    def open_android_locale_settings(device_serial_id):
+    def open_android_locale_settings(self, device_serial_id):
         """
         Purpose:
             Open the locale settings on Android
@@ -162,7 +162,7 @@ class ADB:
         print(command)
 
     @allure.step("And we set {country} language ")
-    def set_locale_language(device_serial_id, lang, country):
+    def set_locale_language(self, device_serial_id, lang, country):
         """
             Purpose:
                 Set locale to Android
@@ -173,7 +173,7 @@ class ADB:
         print(command)
 
     @allure.step("And we open the date and time settings")
-    def open_date_time_settings(device_serial_id):
+    def open_date_time_settings(self, device_serial_id):
         """
             Purpose:
                 Open the date and time settings on Android
@@ -183,7 +183,7 @@ class ADB:
         print(command)
 
     @allure.step("And we force close settings")
-    def close_settings(device_serial_id):
+    def close_settings(self, device_serial_id):
         """
         Purpose:
             Force closes settings
@@ -193,18 +193,18 @@ class ADB:
         print(command)
 
     @allure.step("And we get the device volume")
-    def get_device_volume(device_serial_id, audio_stream_index) -> str:
+    def get_device_volume(self, device_serial_id, audio_stream_index) -> str:
         command = 'adb -s ' + str(device_serial_id) + ' shell media volume --stream ' + str(audio_stream_index) + ' --get'
         device_volume = os.popen(command).read()
         return device_volume.splitlines()[3].split(' ')[3].strip(' ')
 
     @allure.step("And we install app")
-    def install_app(path_to_apk):
+    def install_app(self, path_to_apk):
         command = 'adb install ' + str(path_to_apk)
         os.popen(command).read()
 
     @allure.step("And we uninstall app")
-    def uninstall_app(app_package):
+    def uninstall_app(self, app_package):
         command = 'adb uninstall ' + str(app_package)
         os.popen(command).read()
 
