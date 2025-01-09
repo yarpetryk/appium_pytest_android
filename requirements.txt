@@ -5,3 +5,4 @@ selenium                 # Selenium is a portable framework for testing web/mobi
 Faker                    # Faker is a Python package that generates fake data for you
 python-dotenv            # Python-dotenv reads key-value pairs from a .env file and can set them as environment variables
 requests                 # Requests is an elegant and simple HTTP library for Python
+visual-comparison
